@@ -2,9 +2,16 @@
 Merge multiple iCalendar .ics files to one file.
 ## Usage
 
-clone the repo
+### Clone the repo
+
     git clone https://github.com/jssosa10/CalendarMerger.git
   
-install dependecies
+### Install dependecies
+
+    pip install vobject
+    
+### Run
+
+    python calendarMerger.py -d "directory of the .ics flies are" -i "the target file"
 
     
