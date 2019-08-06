@@ -12,6 +12,6 @@ Merge multiple iCalendar .ics files to one file.
     
 ### Run
 
-    python calendarMerger.py -d "directory of the .ics flies are" -i "the target file"
+    python calendarMerger.py -d "directory" -i "combined file"
 
     
