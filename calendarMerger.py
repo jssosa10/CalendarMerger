@@ -8,11 +8,13 @@ import datetime
 import glob
 import codecs
 
-from ConfigParser import ConfigParser
+from configparser import ConfigParser
 from optparse import OptionParser, Option, OptionGroup
 
 # 3rd party libs
 import vobject
+
+from merger import Merger
 
 
 __AUTHOR__ = u"Juan Sosa"
@@ -42,46 +44,7 @@ if __name__ == "__main__":
 
     if options.icalfile != None:
         options.icalfile = os.path.realpath(options.icalfile)
-        os.chdir(options.dir)
-        ##files = glob.glob(options.files)
-
-        combinedCalendar = vobject.iCalendar()
-
-        for i in glob.glob("*.ics"):
-            print "Opening '%s'.." % i
-            f = open(i, 'rb')
-
-            print "Reading '%s'.." % i
-            contents = f.read()
-            contents = contents.decode('utf-8')
-
-            f.close()
-
-            components = vobject.readComponents(contents, validate=False)
-
-            for component in components:
-                for child in component.getChildren():
-
-                    add_entry = True
-
-                    if child.name == 'VERSION':
-                        add_entry = False
-
-                    if child.name == 'PRODID':
-                        add_entry = False
-
-                    if add_entry:
-                        combinedCalendar.add(child)
-            
-                
-
-        # Write iCal file
-        print "Writing iCalendar file '%s'.." % options.icalfile
-        f = open(options.icalfile, 'wb')
-        f.write(combinedCalendar.serialize(validate=False))
-        f.close()
-
-        print "Done."
+        Merger(options.dir,options.icalfile)
         sys.exit(0)
 
     sys.exit(1)
